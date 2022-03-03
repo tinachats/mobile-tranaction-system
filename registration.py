@@ -1,30 +1,37 @@
-# Function to register new users
-def registration(first_name, last_name, age, gender, bank_balance, pin):
+# Import the user inputs function 
+# from the user_inputs module
+from user_inputs import userInput
+
+# Register new users
+def userRegistration():
+    # Create a users array to hold all users
     users = []
-    first_name = input('Enter your first name: ')
-    last_name = input('Enter your last name: ')
-    age = int(input('Enter your age: '))
-    gender = input('Enter your gender: ')
 
-    user = {
-        first_name: first_name,
-        last_name: last_name,
-        age: age,
-        gender: gender,
-        bank_balance: bank_balance,
-        pin: pin
-    }
+    # Fetch user data if it's available
+    user_data = userInput()
 
-    users.append(user)
+    # Keep prompting the user to enter the correct pin if they have enter a wrong
+    # pin and password
+    # while len(user_data.pin) != 4 or len(user_data.mobile_number) != 10:
+    #     pass
 
-# Make sure the pin entered is a valid 4-digit pin
-def pin():
-    pin = 0
-    entered_pin = input('Enter your 4 digit pin: ')
-
-    # Make sure the pin is within the range 0 - 10000
-    # and it's a 4 digit pin
-    if entered_pin.isdigit() and entered_pin in range(0000, 10000) and len(entered_pin) == 4:
-        pin = entered_pin
-    else:
-        return False
+    # Register the user if and only if the pin is correct and the mobile number
+    if user_data.mobile_number.isdigit() and user_data.pin.isdigit():
+        if len(user_data.pin) == 4 and len(user_data.mobile_number) == 10:
+            # Check to see if the mobile number already exists
+            if len(users) > 0:
+                for user in users:
+                    if user.mobile_number == user_data.mobile_number:
+                        print('Mobile number already registered! Try another one.');
+                    else: 
+                        users.append(user_data)
+                        print(f'Welcome { user_data.first_name }!')
+            else:
+                users.append(user_data)
+                print(f'Welcome { user_data.first_name }!')
+        elif len(user_data.pin) != 4:
+            print('Your pin is incorrect!')
+        elif len(user_data.mobile_number) != 10:
+            print('Mobile number is incorrect!')
+        else:
+            pass
