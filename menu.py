@@ -1,7 +1,11 @@
-def mainMenu():
+from users import *
+from accounts import *
+
+def main_menu():
     # Make the program run in an infinite loop
     while True:
         try:
+            print(greeting())
             print('Welcome to Chaterera Mobile Services')
             print('PLEASE SELECT')
             print('1. Create an account.')
@@ -11,18 +15,17 @@ def mainMenu():
             print('5. Cancel')
 
             # Prompt the user to enter menu value
-            menu_value = int(input('Enter your selection: \n'))
+            menu_value = int(input('Enter your selection: '))
 
             if menu_value == 1:
-                from registration import userRegistration
-                print('Hello! Sign up, it\'s free.')
-                userRegistration()
+                user_registration()
+                login()
             elif menu_value == 2:
-                print('Welcome back!')
+                login()
             elif menu_value == 3:
-                print('Send money')
+                send_money()
             elif menu_value == 4:
-                print('Balance enquiry')
+                balance_enquiry()
             elif menu_value == 4:
                 quit()
             else:
