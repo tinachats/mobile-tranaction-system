@@ -1,2 +1,0 @@
-{'first_name': 'Chaterera', 'mobile_number': '0776021140', 'age': 30, 'gender': 'M', 'wallet_balance': 3838.39, 'pin': '2894'}
-{'first_name': 'Hemsworth', 'mobile_number': '0774729412', 'age': 29, 'gender': 'F', 'wallet_balance': 38548.49, 'pin': '2475'}

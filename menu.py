@@ -19,7 +19,6 @@ def main_menu():
 
             if menu_value == 1:
                 user_registration()
-                login()
             elif menu_value == 2:
                 login()
             elif menu_value == 3:
@@ -27,7 +26,7 @@ def main_menu():
             elif menu_value == 4:
                 balance_enquiry()
             elif menu_value == 4:
-                quit()
+                exit()
             else:
                 print("Oops! That was no valid number. Try again...")
                 continue

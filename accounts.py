@@ -17,7 +17,7 @@ def user_registration():
         if len(user_data['pin']) == 4 and len(user_data['mobile_number']) == 10:
             # Check to see if the mobile number already exists
             if check_mobile_number(user_data['mobile_number']):
-                login()
+                print('Account already exist. Please login.')
             else:
                 users.append(user_data) 
                 register_user(users)
@@ -30,8 +30,17 @@ def user_registration():
 
 # Login functionality
 def login():
-    print('Welcome back!')
     print('Login to enjoy mobile transaction services.')
+
+    mobile_number = input('Enter your mobile phone number: ')
+    pin = input('Enter your 4 digit pin: ')
+
+    if check_mobile_number(mobile_number) and verify_pin(pin):
+        print('Welcome back!')
+    else:
+        print('Mobile number or pin is incorrect. Try again.')
+
+    print(auth_details(mobile_number))
 
 # Send money
 def send_money():

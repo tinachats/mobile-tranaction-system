@@ -1,3 +1,4 @@
+import os 
 # Created the User class
 class User:
     # Created the object with the following attributes
@@ -12,9 +13,21 @@ class User:
 
 # Get the user's username
 def username():
-    import os
     username = os.getlogin()
     return username 
+
+# Show authenticated user's details
+def auth_details(mobile_number):
+    if os.path.exists('userDB.txt'):
+        user_data = []
+        with open('userDB.txt', 'r') as f:
+            # Fetch all the other data 
+            for line in f:
+                # Remove the quotation marks that are wrapped 
+                # on the data
+                data = line.replace('"', '')
+                print(data)
+# auth_details(0)
 
 # User timely greeting
 def greeting():
@@ -28,7 +41,7 @@ def greeting():
     if hour > 0 and hour < 12:
         greeting = f'Good morning, {username()}!'
     elif hour > 12 and hour < 18:
-        greeting = f'Good afternoon, {username()}! '
+        greeting = f'Good afternoon, {username()}!'
     else: 
         greeting = f'Good evening, {username()}!'
 

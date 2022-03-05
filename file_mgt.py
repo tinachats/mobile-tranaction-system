@@ -12,6 +12,16 @@ def check_mobile_number(mobile_number):
 
     return phone_exist
 
+# Check for a user's pin 
+def verify_pin(pin):
+    is_valid = False
+    if os.path.exists('userDB.txt'):
+        with open('userDB.txt', 'r') as f:
+            if pin in f.read():
+                is_valid = True
+    
+    return is_valid
+
 # Register new user in the userDB if mobile number 
 # doesn't exist
 def register_user(users):
