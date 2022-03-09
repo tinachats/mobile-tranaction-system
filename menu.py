@@ -1,36 +1,30 @@
 from users import *
-from accounts import *
+from validations import *
+from wallet import *
 
-def main_menu():
-    # Make the program run in an infinite loop
+def menu():
     while True:
         try:
-            print(greeting())
-            print('Welcome to Chaterera Mobile Services')
-            print('PLEASE SELECT')
-            print('1. Create an account.')
-            print('2. Sign in')
+            print('SELECT YOUR OPTION!')
+            print('1. Create your account.')
+            print('2. Login into your account')
             print('3. Send money')
-            print('4. Check balance')
-            print('5. Cancel')
+            print('4. Balance enquiry')
+            print('5. Quit')
 
-            # Prompt the user to enter menu value
-            menu_value = int(input('Enter your selection: '))
+            option = int(input('Enter your menu option here: '))
 
-            if menu_value == 1:
-                user_registration()
-            elif menu_value == 2:
-                login()
-            elif menu_value == 3:
-                send_money()
-            elif menu_value == 4:
-                balance_enquiry()
-            elif menu_value == 4:
-                exit()
-            else:
-                print("Oops! That was no valid number. Try again...")
-                continue
+            if option == 1:
+                User.register_user()
+            elif option == 2:
+                User.login()
+            elif option == 3:
+                Wallet.send_money()
+            elif option == 4:
+                Wallet.balance_enquiry()
+            elif option == 5:
+                User.quit_program()
+            else: 
+                print('Invalid menu option value')
         except ValueError as err:
-            print("Oops! That was no valid number. Try again...")
-            print(f'Error type: { err }')
-
+            print(f'{err}')
