@@ -1,5 +1,4 @@
 from users import *
-from validations import *
 from wallet import *
 
 def menu():

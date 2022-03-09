@@ -1,1 +1,2 @@
-{'first_name': 'tinashe', 'last_name': 'chaterera', 'mobile_number': '0776021140', 'wallet_balance': 383.39, 'age': 39, 'gender': 'm', 'pin': '38383'}
+{'first_name': 'tinashe', 'last_name': 'chaterera', 'mobile_number': '0776021140', 'wallet_balance': 320.0, 'age': 30, 'gender': 'm', 'pin': '0000'}
+{'first_name': 'tatiana', 'last_name': 'hemsworth', 'mobile_number': '0776021140', 'wallet_balance': 303.0, 'age': 23, 'gender': 'f', 'pin': '0001'}

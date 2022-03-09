@@ -1,5 +1,4 @@
 from files import Files
-from validations import *
 from datetime import datetime as dt
 
 class User:
@@ -70,6 +69,25 @@ class User:
 
         return greeting
     
+    @staticmethod
+    # Validate phone and pin
+    def validate(field, limit):
+        if field.isdigit() and len(field) == limit:
+            return True
+        else: 
+            return False
+
+    def verify(self, pin, mobile_number):
+        while self.validate(pin, 4) != True or self.validate(mobile_number, 10) != True:
+            if self.validate(pin, 4) != True:
+                print('Pin is incorrect!')
+                pin = input('Enter your 4 digit pin: ')
+                self.pin = pin
+            if self.validate(mobile_number, 10) != True:
+                print('Mobile number is incorrect!') 
+                mobile_number = input('Enter your mobile number: ')
+                self.mobile_number = mobile_number
+
     # Register new user
     def register_user():
         first_name = input('Enter your first name: ')
@@ -81,12 +99,12 @@ class User:
         pin = input('Enter your 4-digit pin: ')
         users = []
 
-        # Verify if user info is correct
-        verify(pin, mobile_number)
-
         # Create a user instance
         user = User(first_name, last_name, mobile_number,
         wallet_balance, age, gender, pin)
+
+         # Verify if user info is correct
+        user.verify(pin, mobile_number)
 
         # save the user in the text file
         user_data = user.user_data()
@@ -95,8 +113,14 @@ class User:
         # Create a files instance for creating the 
         # user database
         files = Files('userDB.txt')
+        
+        # Check if number is not already registered
+        files.check_mobile_number(mobile_number, users)
+
+        # Save user details
         files.save_user(users)
         
+        # Show the results to the user
         print(repr(user))
         print(user)
 

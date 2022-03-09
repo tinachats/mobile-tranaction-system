@@ -11,19 +11,22 @@ class Files:
             if len(users) > 0:
                 for user in users:
                     file.write('%s\n' % user)
+                    # Register your account
+                    print('Account successfully created!')
                     break
             else:
+                # Register your account
+                print('Account successfully created!')
                 file.write('%s\n' % users)
             
     # Check if the mobile number is not already registered
     def check_mobile_number(self, mobile_number, users=None):
         if os.path.exists(self.filename):
             with open(self.filename, 'r') as file:
-                if mobile_number in file.read():
+                while mobile_number in file.read():
                     print(f'{mobile_number} already registered with us. Try a different one.')
-                else:
-                    # Save the user
-                    self.save_user(users)
+                    mobile_number = input('Enter different mobile number: ')
+                    self.mobile_number = mobile_number
         else:
             open(self.filename, 'a')
         
