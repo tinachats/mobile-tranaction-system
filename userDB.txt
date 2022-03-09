@@ -1,2 +1,2 @@
-{'first_name': 'tinashe', 'last_name': 'chaterera', 'mobile_number': '0776021140', 'wallet_balance': 320.0, 'age': 30, 'gender': 'm', 'pin': '0000'}
-{'first_name': 'tatiana', 'last_name': 'hemsworth', 'mobile_number': '0776021140', 'wallet_balance': 303.0, 'age': 23, 'gender': 'f', 'pin': '0001'}
+{'first_name': 'tinashe', 'last_name': 'chaterera', 'mobile_number': '0776021140', 'wallet_balance': 30303.0, 'age': 20, 'gender': 'm', 'pin': '0000'}
+{'first_name': 'tatiana', 'last_name': 'hemsworth', 'mobile_number': '0774729412', 'wallet_balance': 293.0, 'age': 38, 'gender': 'f', 'pin': '1000'}

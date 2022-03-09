@@ -82,11 +82,10 @@ class User:
             if self.validate(pin, 4) != True:
                 print('Pin is incorrect!')
                 pin = input('Enter your 4 digit pin: ')
-                self.pin = pin
+                
             if self.validate(mobile_number, 10) != True:
                 print('Mobile number is incorrect!') 
                 mobile_number = input('Enter your mobile number: ')
-                self.mobile_number = mobile_number
 
     # Register new user
     def register_user():
@@ -107,6 +106,8 @@ class User:
         user.verify(pin, mobile_number)
 
         # save the user in the text file
+        user.mobile_number = mobile_number
+        user.pin = pin
         user_data = user.user_data()
         users.append(user_data)
 
@@ -115,7 +116,10 @@ class User:
         files = Files('userDB.txt')
         
         # Check if number is not already registered
-        files.check_mobile_number(mobile_number, users)
+        while files.check_mobile_number(mobile_number):
+            print(f'{mobile_number} already registered with us. Try a different one.')
+            mobile_number = input('Enter different mobile number: ')
+            user.mobile_number = mobile_number
 
         # Save user details
         files.save_user(users)
@@ -124,54 +128,44 @@ class User:
         print(repr(user))
         print(user)
 
-    def login(self):
+    def login():
         print('Login into your account')
-        stored_pin = '1234'
         max_trials = 3
         attempts = 0
 
+        # Create a files instance
+        files = Files('userDB.txt')
+
         while attempts < max_trials:
             pin = input('Enter your 4-digit pin: ')
-            if pin != stored_pin:
-                print('Incorrect pin. Try again.')
+            mobile_number = input('Enter your mobile number: ')
+            
+            # Fetch all users in the user database and populate 
+            # the user array
+            users = []
+
+            if files.check_pin(pin) and files.check_mobile_number(mobile_number):
+                # next((user for user in users if user['pin'] == '0001'), None)
+                # for user in users:
+                #     if user['pin'] == '0000':
+                #         print('User found!')
+                #         print(user)
+                #         break
+                # else:
+                #     user = None
+                files.file_to_list(users)
+
+                print('Welcome user!')
+                break 
+            else:
+                print('Incorrect pin or mobile number. Try again.')
+                pin = input('Enter your 4-digit pin: ')
+                mobile_number = input('Enter your mobile number: ')
                 attempts += 1
                 attempts_left = max_trials - attempts
                 print(f'{attempts_left} attempts left.')
-            else:
-                print('Welcome user!')
-                break 
         else: 
             print('You\'ve exhausted your number of trials.')
-        users = [
-            {
-                'user_id':1,
-                'first_name': 'cristiano',
-                'last_name': 'ronaldo',
-                'mobile_number': '0776021140',
-                'wallet_balance': 23646.48,
-                'age': 37,
-                'gender': 'male',
-                'pin': '0000'
-            },
-            {
-                'user_id':2,
-                'first_name': 'lionel',
-                'last_name': 'messi',
-                'mobile_number': '0774729412',
-                'wallet_balance': 3647.48,
-                'age': 34,
-                'gender': 'male',
-                'pin': '0001'
-            }
-        ]
-        # next((user for user in users if user['pin'] == '0001'), None)
-        for user in users:
-            if user['pin'] == '0000':
-                print('User found!')
-                print(user)
-                break
-        else:
-            user = None
     
     @staticmethod 
     def quit_program():
