@@ -38,12 +38,11 @@ class Files:
             open(self.filename, 'a')
 
     # Getting the data in a file into a list
-    def file_to_list(self, arr):
-        arr = []
+    def file_to_list(self, users):
+        users = []
         if os.path.exists(self.filename):
-            with open(self.filename, 'r') as file:
-                for line in file:
-                    data = line.replace('"', "").strip()
-                    arr.append(data) 
-                print(arr)
+            with open(self.filename, 'r', encoding="utf-8") as file:
+                for text in file:
+                    users.append(text.replace('"', '').strip())
+                print(users)
         

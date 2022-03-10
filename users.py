@@ -29,7 +29,8 @@ class User:
     def fullname(self):
         self.first_name = None 
         self.last_name = None
-
+    
+    @property
     # Give the user an email address 
     def email(self):
         return '{}.{}@mobitransys.com'.format(self.first_name.lower(), self.last_name.lower())
@@ -46,15 +47,17 @@ class User:
             'pin': self.pin
         }
         return obj
-
+    
+    # Special methods
     # Represent the user object
     def __repr__(self):
-        return "User({}, '{}', '{}', '{}', {}, '{}', {})".format(self.first_name, self.last_name, 
+        return "User('{}', '{}', '{}', {}, {}, '{}', '{}')".format(self.first_name, self.last_name, 
     self.mobile_number, self.wallet_balance, self.age, self.gender, self.pin)
 
     # Show data to the client
     def __str__(self):
-        return '{} - {} - ${}'.format(self.fullname, self.mobile_number, self.wallet_balance)
+        return '{}, {}, {}, {}, {}, {}, {}'.format(self.first_name, self.last_name, 
+        self.mobile_number, self.wallet_balance, self.age, self.gender, self.pin)
 
     # User greeting
     def user_greeting(self):
@@ -102,14 +105,12 @@ class User:
         user = User(first_name, last_name, mobile_number,
         wallet_balance, age, gender, pin)
 
-         # Verify if user info is correct
+        # Verify if user info is correct
         user.verify(pin, mobile_number)
 
         # save the user in the text file
-        user.mobile_number = mobile_number
-        user.pin = pin
-        user_data = user.user_data()
-        users.append(user_data)
+        mobile_number = mobile_number
+        pin = pin
 
         # Create a files instance for creating the 
         # user database
@@ -122,6 +123,8 @@ class User:
             user.mobile_number = mobile_number
 
         # Save user details
+        users.append(user.user_data()) # Create a list of objects
+        # users.append(user) Create a list object based on the user instance
         files.save_user(users)
         
         # Show the results to the user
@@ -136,23 +139,14 @@ class User:
         # Create a files instance
         files = Files('userDB.txt')
 
+        pin = input('Enter your 4-digit pin: ')
+        mobile_number = input('Enter your mobile number: ')
+
         while attempts < max_trials:
-            pin = input('Enter your 4-digit pin: ')
-            mobile_number = input('Enter your mobile number: ')
-            
-            # Fetch all users in the user database and populate 
-            # the user array
+            # Fetch all user info from the database
             users = []
 
             if files.check_pin(pin) and files.check_mobile_number(mobile_number):
-                # next((user for user in users if user['pin'] == '0001'), None)
-                # for user in users:
-                #     if user['pin'] == '0000':
-                #         print('User found!')
-                #         print(user)
-                #         break
-                # else:
-                #     user = None
                 files.file_to_list(users)
 
                 print('Welcome user!')
@@ -163,10 +157,25 @@ class User:
                 mobile_number = input('Enter your mobile number: ')
                 attempts += 1
                 attempts_left = max_trials - attempts
-                print(f'{attempts_left} attempts left.')
+                output = ''
+
+                if attempts_left == 1:
+                    output = '1 attempt left.'
+                else:
+                    output = '{} attempts left.'.format(attempts_left)
+
+                print(output)
         else: 
             print('You\'ve exhausted your number of trials.')
+            User.quit_program()
     
     @staticmethod 
     def quit_program():
-        print('Do you want to exit?')
+        option = input('Do you want to exit? (Y / n): ')
+
+        if option in ['Yes', 'yes', 'Y', 'y', 'yep']:
+            print('Exiting...')
+            quit()
+
+
+
