@@ -1,2 +1,0 @@
-{'first_name': 'tinashe', 'last_name': 'chaterera', 'mobile_number': '0776021140', 'wallet_balance': 38348.0, 'age': 30, 'gender': 'm', 'pin': '3838'}
-{'first_name': 'jane', 'last_name': 'doe', 'mobile_number': '0774729412', 'wallet_balance': 3848.0, 'age': 39, 'gender': 'm', 'pin': '3383'}

@@ -1,5 +1,6 @@
 from users import *
 from wallet import *
+import json
 
 def menu():
     while True:
@@ -16,7 +17,18 @@ def menu():
             if option == 1:
                 User.register_user()
             elif option == 2:
-                User.login()
+                # User.login()
+                def fetch_data(mobile_number):
+                    with open('userDB.json','r') as file:
+                        text = file.read()
+                        text = text.replace('\t','').replace('\n','')
+                        text = text.replace(',}','}').replace(',]',']')
+                        users = json.loads(text)
+                    for user in users:
+                        if mobile_number == user['mobile_number']:
+                            print(user)
+                            print(user['first_name'])
+                fetch_data('0774729412')
             elif option == 3:
                 Wallet.send_money()
             elif option == 4:

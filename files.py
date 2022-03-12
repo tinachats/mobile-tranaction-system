@@ -1,23 +1,18 @@
 import os 
 from users import *
+import json
+import ast
 
 class Files:
     def __init__(self, filename):
         self.filename = filename
 
     # Function for saving registered users
-    def save_user(self, users):
+    def save_user(self, user_info):
         with open(self.filename, 'a') as file:
-            if len(users) > 0:
-                for user in users:
-                    file.write('%s\n' % user)
-                    # Register your account
-                    print('Account successfully created!')
-                    break
-            else:
-                # Register your account
-                print('Account successfully created!')
-                file.write('%s\n' % users)
+            json.dump(user_info, file)
+            file.write(',')
+            print('Account successfully created!')
             
     # Check if the mobile number is not already registered
     def check_mobile_number(self, mobile_number):
@@ -37,12 +32,19 @@ class Files:
         else:
             open(self.filename, 'a')
 
-    # Getting the data in a file into a list
-    def file_to_list(self, users):
+    # Getting the data in the userDB file into a list
+    def file_to_list(self, mobile_number, pin):
         users = []
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding="utf-8") as file:
                 for text in file:
                     users.append(text.replace('"', '').strip())
-                print(users)
+
+                # Get all the user info
+                for user in users:
+                    if user['mobile_number'] == mobile_number and user['pin'] == pin:
+                        print(user)
+                        break
+                    else:
+                        print(f'Hmmm... {mobile_number} not found!')
         

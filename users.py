@@ -38,13 +38,13 @@ class User:
     # The user object
     def user_data(self):
         obj = {
-            'first_name': self.first_name, 
-            'last_name': self.last_name, 
-            'mobile_number': self.mobile_number, 
-            'wallet_balance': self.wallet_balance, 
-            'age': self.age, 
-            'gender': self.gender, 
-            'pin': self.pin
+            "first_name": self.first_name, 
+            "last_name": self.last_name, 
+            "mobile_number": self.mobile_number, 
+            "wallet_balance": self.wallet_balance, 
+            "age": self.age, 
+            "gender": self.gender, 
+            "pin": self.pin
         }
         return obj
     
@@ -99,7 +99,6 @@ class User:
         age = int(input('Enter your age: '))
         gender = input('Enter your gender (M / F): ')
         pin = input('Enter your 4-digit pin: ')
-        users = []
 
         # Create a user instance
         user = User(first_name, last_name, mobile_number,
@@ -114,7 +113,7 @@ class User:
 
         # Create a files instance for creating the 
         # user database
-        files = Files('userDB.txt')
+        files = Files('userDB.json')
         
         # Check if number is not already registered
         while files.check_mobile_number(mobile_number):
@@ -123,9 +122,11 @@ class User:
             user.mobile_number = mobile_number
 
         # Save user details
-        users.append(user.user_data()) # Create a list of objects
-        # users.append(user) Create a list object based on the user instance
-        files.save_user(users)
+        # users.append(user.user_data()) # Create a list of objects
+        # users.append(user) # Create a list object based on the user instance
+        
+        user_info = user.user_data()
+        files.save_user(user_info)
         
         # Show the results to the user
         print(repr(user))
@@ -137,7 +138,7 @@ class User:
         attempts = 0
 
         # Create a files instance
-        files = Files('userDB.txt')
+        files = Files('userDB.json')
 
         pin = input('Enter your 4-digit pin: ')
         mobile_number = input('Enter your mobile number: ')
@@ -147,9 +148,34 @@ class User:
             users = []
 
             if files.check_pin(pin) and files.check_mobile_number(mobile_number):
-                files.file_to_list(users)
+                users = [
+                    {
+                        'first_name': 'tinashe', 
+                        'last_name': 'chaterera', 
+                        'mobile_number': '0776021140', 
+                        'wallet_balance': 38348.0, 
+                        'age': 30, 
+                        'gender': 'm', 
+                        'pin': '0000'
+                    }, 
+                    {
+                        'first_name': 'jane', 
+                        'last_name': 'doe', 
+                        'mobile_number': '0774729412', 
+                        'wallet_balance': 3848.0, 
+                        'age': 39, 
+                        'gender': 'm', 
+                        'pin': '0001'
+                    }
+                ]
 
-                print('Welcome user!')
+                # Get user info
+                for user in users:
+                    if user['mobile_number'] == mobile_number and user['pin'] == pin:
+                        print(user)
+                        break
+
+                print('Welcome {}!'.format(user["first_name"].title()))
                 break 
             else:
                 print('Incorrect pin or mobile number. Try again.')

@@ -2,8 +2,11 @@ from users import *
 from datetime import datetime as dt
 
 class Wallet(User):
-    def __init__(self, first_name, last_name, mobile_number, wallet_balance, age, gender, pin, sent_amount, transaction_date, friends=None, friends_number=None):
-        super().__init__(first_name, last_name, mobile_number, wallet_balance, age, gender, pin)
+    def __init__(self, first_name, last_name, mobile_number, 
+    wallet_balance, age, gender, pin, sent_amount, 
+    transaction_date, friends=None, friends_number=None):
+        super().__init__(first_name, last_name, 
+        mobile_number, wallet_balance, age, gender, pin)
         self.sent_amount = sent_amount
         self.transaction_date = transaction_date
         if friends is None:
